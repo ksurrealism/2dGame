@@ -25,6 +25,22 @@
             #sudoku input{height:30px; width:30px; border:20 none;text-align:center;}
     </style>
     <table id="sudoku" cellspacing="0">
+    //стиль кнопки
+    <style>
+      button.new {
+    background: -moz-linear-gradient(#cbf3d5, #7fe77d, #cbf3d6);
+    background: -webkit-gradient(linear, 0 0, 0  100%, from(#cbf3d5), to(#cbf3d5), color-stop(0.5, #38db43));
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ca34', endColorstr='#caffd3');
+    padding: 3px 7px;
+    color: #333;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #666;
+   }
+   </style>
+    <button class="new" type="submit" id="solve">Показатать решение</button>
+
     <script type="text/javascript">
 
             var start = '0748235691216987354359146287923714568164859723875362419432598176591673842687421935' //готовый шаблон (спасибо ларьку за сложные судоку с ответами :) )
@@ -57,6 +73,33 @@
           		// document.write((rand > 5) ? '<td>'+Num_Arr[start.substr(i,1)-1] + '</td>' : '<td class="l"> <input type="text" size="1" maxlength="1" onkeydown = "javascript: return ((event.keyCode>47)&&(event.keyCode<58))"> </td>' );
           		if (i%9==0) document.write('</tr>'); //на девятой строчке останавливаемся
           	}
+            
+            //функция вывода правильного ответа
+            function Answer_Table(tdSz, n) {
+                   k = 1
+                   mT = n;
+                   td = "<td style = 'background-color:#c9ffb3; width:" + tdSz + "; height:" + tdSz + "'";
+                   td += " onclick = 'sayRC(this)'></td>";
+                   tHdr = "<table id = 'tbl' style = 'background-color:#c9ffb3; cursor:pointer'; border = 1px";
+                   document.write(tHdr);
+                   for (i = 0; i < mT; i++) {
+                        document.write("<tr>");
+                        for (j = 0; j < mT; j++) {
+                          //document.write(td + '1');
+                          document.write('<td>' + Num_Arr[start.substr(k,1) - 1] + '</td>');
+                          k+=1
+                        }
+                        document.write("</tr>");
+                   }
+                   document.write("</table>");
+                   tbl = document.getElementById("tbl");
+            }
+
+            document.querySelector("#solve").onclick = function(){
+              document.write("<h1>Ответ:</h1>");
+              Answer_Table('40px', 9);
+            }
+            
   </script>
   </table>
   </body>
